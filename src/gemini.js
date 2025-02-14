@@ -7,7 +7,6 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY_GEMINI);
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 export async function gemini(askPrompt) {
-    console.log("Chamou a função gemini");
 
     const prompt = askPrompt.toString();
 

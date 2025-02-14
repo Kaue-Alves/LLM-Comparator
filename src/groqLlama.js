@@ -7,7 +7,6 @@ const apiKey = process.env.API_KEY_GROQ;
 const groqClient = new Groq({ apiKey: apiKey });
 
 export async function groqLlama3(askPrompt) {
-    console.log("Chamou a função groqChat Llama3");
 
     const prompt = askPrompt.toString();
 

@@ -22,7 +22,7 @@ Precisão da informação (1-10)
 Criatividade ou profundidade (1-10)
 Consistência gramatical (1-10)
 
-Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o formato acima. Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta."
+Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o formato acima. Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)"
 
 Gemini: ${respostaDoGemini}
 Mistral: ${respostaDoMistral}
@@ -44,7 +44,7 @@ async function vencedor(autoAvaliacoes) {
     Mistral: ${autoAvaliacoes.avaliacaoDoMistral}
     Llama3: ${autoAvaliacoes.avaliacaoDoLlama3}
 
-    Faça um mini ranking final.
+    Faça um mini ranking final. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)
     `
 
     return `Vencedor: ${await groqGemma2(prompt)}`
@@ -53,23 +53,36 @@ async function vencedor(autoAvaliacoes) {
 console.log("Bem-vindo ao Chatbot de Comparação de Modelos de Linguagem! \n");
 
 let userInput = await getUserInput("Faça uma pergunta para iniciar: ");
-console.log(`Aguarde enquanto os modelos de linguagem respondem a pergunta: ${userInput}\n\n`);
+console.log(`Aguarde um momento enquanto os modelos de linguagem respondem a pergunta.\n\n`);
 
 
+console.log(`Conectando a api do Gemini...`);
 let respostaDoGemini = await gemini(userInput);
+
+console.log(`Conectando a api do Mistral...`);
 let respostaDoMistral = await mistral(userInput);
+
+console.log(`Conectando a api do Groq com modelo Llama3...`);
 let respostaDoLlama3 = await groqLlama3(userInput);
+
+console.log(`\n\nResposta do Gemini: \n\n${respostaDoGemini}\n\n`);
+console.log(`-----------------`);
+console.log(`\n\nResposta do Mistral: \n\n${respostaDoMistral}\n\n`);
+console.log(`-----------------`);
+console.log(`\n\nResposta do Groq com modelo Llama3: \n\n${respostaDoLlama3}\n\n`);
+console.log(`-----------------`);
+
+console.log(`\n\nGerando auto-avaliações dos modelos de linguagem... (Essa operação leva alguns segundos)\n\n`);
 
 let autoAvaliacoes = await avaliar(respostaDoGemini, respostaDoMistral, respostaDoLlama3); 
 
-
-console.log(`Resposta do Gemini: \n\n${respostaDoGemini}\n\n`);
-console.log(`Resposta do Mistral: \n\n${respostaDoMistral}\n\n`);
-console.log(`Resposta do Groq com modelo Llama3: \n\n${respostaDoLlama3}\n\n`);
-
-
 console.log(`Auto-avaliação do Gemini: \n\n${autoAvaliacoes.avaliacaoDoGemini}\n\n`);
-console.log(`Auto-avaliação do Mistral: \n\n${autoAvaliacoes.avaliacaoDoMistral}\n\n`);
-console.log(`Auto-avaliação do Llama3: \n\n${autoAvaliacoes.avaliacaoDoLlama3}\n\n`);
+console.log(`-----------------`);
+console.log(`\n\nAuto-avaliação do Mistral: \n\n${autoAvaliacoes.avaliacaoDoMistral}\n\n`);
+console.log(`-----------------`);
+console.log(`\n\nAuto-avaliação do Llama3: \n\n${autoAvaliacoes.avaliacaoDoLlama3}\n\n`);
+console.log(`-----------------`);
 
-console.log(`\n\nRanking final com o vencedor feito pelo groq com o modelo Gemma2\n\n${await vencedor(autoAvaliacoes)}\n\n`);
+console.log(`\n\nConectando a api do Groq com modelo Gemma2 para determinar o vencedor...`);
+
+console.log(`\n\nRanking final com o vencedor feito pelo Groq com o modelo Gemma2:\n\n${await vencedor(autoAvaliacoes)}`);

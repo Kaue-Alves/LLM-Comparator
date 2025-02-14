@@ -7,7 +7,6 @@ const apiKey = process.env.API_KEY_MISTRAL;
 const client = new Mistral({apiKey: apiKey});
 
 export async function mistral(askPrompt) {
-    console.log("Chamou a função mistral");
 
     const prompt = askPrompt.toString();
 

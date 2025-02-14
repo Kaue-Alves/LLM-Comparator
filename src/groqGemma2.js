@@ -7,7 +7,6 @@ const apiKey = process.env.API_KEY_GROQ;
 const groqClient = new Groq({ apiKey: apiKey });
 
 export async function groqGemma2(askPrompt) {
-    console.log("Chamou a função groqChat Gemma2");
 
     const prompt = askPrompt.toString();
 
