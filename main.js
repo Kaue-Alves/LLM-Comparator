@@ -22,14 +22,8 @@ Precisão da informação (1-10)
 Criatividade ou profundidade (1-10)
 Consistência gramatical (1-10)
 
-Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o seguinte formato para o ranking:
-
-Clareza e coerência:
-Precisão da informação:
-Criatividade ou profundidade:
-Consistência gramatical:
-
-Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc. E responda em Português Brasileiro)"
+Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o formato acima.
+Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)"
 
 Gemini: ${respostaDoGemini}
 Mistral: ${respostaDoMistral}
