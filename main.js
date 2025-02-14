@@ -1,7 +1,7 @@
-// Google Gemini - Em progresso
+// Google Gemini - Feito
 // Anthropic Claude
-// ○ Mistral AI
-// ○ DeepSeek AI
+// Mistral AI - 
+// DeepSeek AI
 // Llama3 - Em progresso
 
 import { gemini } from "./src/gemini.js";
@@ -11,9 +11,8 @@ import { getUserInput } from "./src/input.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 async function avaliar(respostaDoGemini, respostaDoMistral) {
-    let avaliacaoDoGemini = await gemini(`"Analise e classifique as respostas fornecidas com base nos seguintes critérios:
+    const promptInicial = `"Analise e classifique as respostas fornecidas com base nos seguintes critérios:
 
 Clareza e coerência (1-10)
 Precisão da informação (1-10)
@@ -23,23 +22,12 @@ Retorne um ranking das respostas com a melhor em primeiro lugar. Use apenas nota
 
 Gemini: ${respostaDoGemini}
 Mistral: ${respostaDoMistral}
-`)
-    
-    let avaliacaoDoMistral = await mistral(`"Analise e classifique as respostas fornecidas com base nos seguintes critérios:
+`
 
-        Clareza e coerência (1-10)
-        Precisão da informação (1-10)
-        Criatividade ou profundidade (1-10)
-        Consistência gramatical (1-10)
-        Retorne um ranking das respostas com a melhor em primeiro lugar. Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta."
-        
-        Gemini: ${respostaDoGemini}
-        Mistral: ${respostaDoMistral}
-        `)
-        
+    let avaliacaoDoGemini = await gemini(promptInicial)
+    let avaliacaoDoMistral = await mistral(promptInicial)        
     return {avaliacaoDoGemini, avaliacaoDoMistral};
 }
-
 
 let userInput = await getUserInput("Faça uma pergunta: ");
 
