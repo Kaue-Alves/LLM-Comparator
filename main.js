@@ -5,12 +5,14 @@
 // Llama3 - Em progresso
 
 import { gemini } from "./src/gemini.js";
+import { mistral } from "./src/mistral.js";
+
 import { getUserInput } from "./src/input.js";
 import dotenv from "dotenv";
 dotenv.config();
 
 
-async function avaliar(respostaDoGemini) {
+async function avaliar(respostaDoGemini, respostaDoMistral) {
     let avaliacaoDoGemini = await gemini(`"Analise e classifique as respostas fornecidas com base nos seguintes critérios:
 
 Clareza e coerência (1-10)
@@ -19,24 +21,41 @@ Criatividade ou profundidade (1-10)
 Consistência gramatical (1-10)
 Retorne um ranking das respostas com a melhor em primeiro lugar. Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta."
 
-Gemini: ${respostaDoGemini}`)
+Gemini: ${respostaDoGemini}
+Mistral: ${respostaDoMistral}
+`)
+    
+    let avaliacaoDoMistral = await mistral(`"Analise e classifique as respostas fornecidas com base nos seguintes critérios:
+
+        Clareza e coerência (1-10)
+        Precisão da informação (1-10)
+        Criatividade ou profundidade (1-10)
+        Consistência gramatical (1-10)
+        Retorne um ranking das respostas com a melhor em primeiro lugar. Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta."
         
-    return avaliacaoDoGemini;
+        Gemini: ${respostaDoGemini}
+        Mistral: ${respostaDoMistral}
+        `)
+        
+    return {avaliacaoDoGemini, avaliacaoDoMistral};
 }
 
 
-let userInput = await getUserInput("Digite algo para o Gemini: ");
-let respostaDoGemini = await gemini(userInput);
+let userInput = await getUserInput("Faça uma pergunta: ");
 
-let autoAvaliacaoGemini = await avaliar(respostaDoGemini); 
+let respostaDoGemini = await gemini(userInput);
+let respostaDoMistral = await mistral(userInput);
+
+let autoAvaliacoes = await avaliar(respostaDoGemini, respostaDoMistral); 
 
 
 console.log(`Resposta do Gemini: \n\n${respostaDoGemini}\n\n`);
+console.log(`Resposta do Mistral: \n\n${respostaDoMistral}\n\n`);
 // console.log(`Resposta do Llama3: \n\n${respostaDoGemini}\n\n`);
 
-console.log();
 
-console.log(`Auto-avaliação do Gemini: \n\n${autoAvaliacaoGemini}\n\n`);
+console.log(`Auto-avaliação do Gemini: \n\n${autoAvaliacoes.avaliacaoDoGemini}\n\n`);
+console.log(`Auto-avaliação do Mistral: \n\n${autoAvaliacoes.avaliacaoDoMistral}\n\n`);
 
 
 
