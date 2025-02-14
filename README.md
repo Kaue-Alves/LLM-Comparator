@@ -61,6 +61,14 @@ LLM-COMPARATOR/
    API_KEY_GROQ=SUA_CHAVE_AQUI
    ```
 
+### 🔑 Obtendo as Chaves das APIs
+
+Para utilizar o projeto, você precisará gerar chaves de API para os diferentes modelos de linguagem. Você pode obtê-las nos seguintes links:
+
+- **Google Gemini**: [Obter chave](https://aistudio.google.com/apikey)
+- **Mistral**: [Obter chave](https://console.mistral.ai/api-keys/)
+- **Groq (Llama3 e Gemma2)**: [Obter chave](https://console.groq.com/keys)
+
 ## ▶️ Como Usar
 
 Execute o projeto com o seguinte comando:
@@ -110,4 +118,3 @@ Sinta-se à vontade para contribuir com melhorias!
 ---
 
 Desenvolvido por [Kauê Alves S.](https://github.com/Kaue-Alves).
-
