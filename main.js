@@ -22,7 +22,14 @@ Precisão da informação (1-10)
 Criatividade ou profundidade (1-10)
 Consistência gramatical (1-10)
 
-Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o formato acima. Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)"
+Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o seguinte formato para o ranking:
+
+Clareza e coerência:
+Precisão da informação:
+Criatividade ou profundidade:
+Consistência gramatical:
+
+Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc. E responda em Português Brasileiro)"
 
 Gemini: ${respostaDoGemini}
 Mistral: ${respostaDoMistral}
@@ -43,7 +50,7 @@ async function vencedor(autoAvaliacoes) {
     Mistral: ${autoAvaliacoes.avaliacaoDoMistral}
     Llama3: ${autoAvaliacoes.avaliacaoDoLlama3}
 
-    Faça um mini ranking final. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)
+    Faça um mini ranking final e dê justificativa breve. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)
     `;
 
     return `Vencedor: ${await groqGemma2(prompt)}`;
