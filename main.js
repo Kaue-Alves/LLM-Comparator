@@ -23,7 +23,7 @@ Criatividade ou profundidade (1-10)
 Consistência gramatical (1-10)
 
 Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o formato acima.
-Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)"
+Use apenas notas, uma indicação de quem ta recebendo a nota, e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)"
 
 Gemini: ${respostaDoGemini}
 Mistral: ${respostaDoMistral}
@@ -38,13 +38,13 @@ Llama3: ${respostaDoLlama3}
 }
 
 async function vencedor(autoAvaliacoes) {
-    const prompt = `Utilizando a linguagem pt-br responda, com as avaliações em mãos, qual dos modelos de linguagem teve a melhor nota? Gemini, Mistral ou Llama3? 
+    const prompt = `Utilizando a linguagem pt-br responda, com as notas das avaliações em mãos, qual dos modelos de linguagem teve a melhor nota geral? Gemini, Mistral ou Llama3? 
     
     Gemini: ${autoAvaliacoes.avaliacaoDoGemini}
     Mistral: ${autoAvaliacoes.avaliacaoDoMistral}
     Llama3: ${autoAvaliacoes.avaliacaoDoLlama3}
 
-    Faça um mini ranking final e dê justificativa breve. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)
+    Faça um mini ranking final com 1º 2º 3º e dê uma justificativa breve. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)
     `;
 
     return `Vencedor: ${await groqGemma2(prompt)}`;
@@ -57,6 +57,7 @@ async function main() {
         );
 
         let userInput = await getUserInput("Faça uma pergunta para iniciar: ");
+        userInput = `(Responda a seguinte pergunta mas atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.): ${userInput}`;
         console.log(
             `Aguarde um momento enquanto os modelos de linguagem respondem a pergunta.\n\n`
         );
@@ -107,7 +108,7 @@ async function main() {
         );
 
         console.log(
-            `\n\nRanking final com o vencedor feito pelo Groq com o modelo Gemma2:\n\n${await vencedor(
+            `\n\nRanking final com o vencedor, feito pelo Groq com o modelo Gemma2:\n\n${await vencedor(
                 autoAvaliacoes
             )}`
         );
