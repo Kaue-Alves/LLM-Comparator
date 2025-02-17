@@ -7,7 +7,6 @@
 import { gemini } from "./src/gemini.js";
 import { mistral } from "./src/mistral.js";
 import { groqLlama3 } from "./src/groqLlama.js";
-
 import { getUserInput } from "./src/input.js";
 import dotenv from "dotenv";
 import { groqGemma2 } from "./src/groqGemma2.js";
@@ -22,19 +21,23 @@ Precisão da informação (1-10)
 Criatividade ou profundidade (1-10)
 Consistência gramatical (1-10)
 
-Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o formato acima.
-Use apenas notas, uma indicação de quem ta recebendo a nota, e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)"
+Retorne um ranking das respostas com a melhor em primeiro lugar utilizando o formato acima. Use apenas notas e um breve comentário (máx. 2 frases) justificando a melhor resposta. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)"
 
 Gemini: ${respostaDoGemini}
 Mistral: ${respostaDoMistral}
 Llama3: ${respostaDoLlama3}
 `;
 
-    let avaliacaoDoGemini = await gemini(prompt);
-    let avaliacaoDoMistral = await mistral(prompt);
-    let avaliacaoDoLlama3 = await groqLlama3(prompt);
+    try {
+        let avaliacaoDoGemini = await gemini(prompt);
+        let avaliacaoDoMistral = await mistral(prompt);
+        let avaliacaoDoLlama3 = await groqLlama3(prompt);
 
-    return { avaliacaoDoGemini, avaliacaoDoMistral, avaliacaoDoLlama3 };
+        return { avaliacaoDoGemini, avaliacaoDoMistral, avaliacaoDoLlama3 };
+    } catch (error) {
+        console.error("Erro ao avaliar as respostas:", error);
+        throw error;
+    }
 }
 
 async function vencedor(autoAvaliacoes) {
@@ -47,7 +50,12 @@ async function vencedor(autoAvaliacoes) {
     Faça um mini ranking final com 1º 2º 3º e dê uma justificativa breve. (Atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.)
     `;
 
-    return `Vencedor: ${await groqGemma2(prompt)}`;
+    try {
+        return `Vencedor: ${await groqGemma2(prompt)}`;
+    } catch (error) {
+        console.error("Erro ao determinar o vencedor:", error);
+        throw error;
+    }
 }
 
 async function main() {
@@ -125,8 +133,10 @@ async function main() {
 
 let op = 1;
 
-while (op != 0 && isNaN(op) != true) {
+while (op != 0) {
     op = await main();
 }
 
-console.log("\nObrigado por usar o Chatbot de Comparação de Modelos de Linguagem!");
+console.log(
+    "\nObrigado por usar o Chatbot de Comparação de Modelos de Linguagem!"
+);
