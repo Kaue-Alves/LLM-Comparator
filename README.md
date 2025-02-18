@@ -22,6 +22,7 @@ LLM-COMPARATOR/
 │   ├── mistral.js        # Integração com Mistral
 │   ├── input.js          # Captura input do usuário
 │── .env                 # Armazena chaves da API
+│── .env.example         # Exemplo de configuração de variáveis de ambiente
 │── .gitignore           # Arquivos a serem ignorados pelo Git
 │── main.js              # Arquivo principal que executa a lógica do programa
 │── package.json         # Dependências do projeto

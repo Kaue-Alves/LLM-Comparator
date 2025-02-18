@@ -57,18 +57,15 @@ async function vencedor(autoAvaliacoes) {
         throw error;
     }
 }
+console.log("Bem-vindo ao Chatbot de Comparação de Modelos de Linguagem! \n");
 
 async function main() {
     try {
-        console.log(
-            "Bem-vindo ao Chatbot de Comparação de Modelos de Linguagem! \n"
-        );
 
         let userInput = await getUserInput("Faça uma pergunta para iniciar: ");
         userInput = `(Responda a seguinte pergunta mas atenção, não utilize formatadores de texto, como por exemplo negrito, itálico, etc.): ${userInput}`;
-        console.log(
-            `Aguarde um momento enquanto os modelos de linguagem respondem a pergunta.\n\n`
-        );
+
+        console.log(`Aguarde um momento enquanto os modelos de linguagem respondem a pergunta.\n\n`);
 
         console.log(`Conectando a api do Gemini...`);
         let respostaDoGemini = await gemini(userInput);
@@ -111,19 +108,11 @@ async function main() {
         );
         console.log(`-----------------`);
 
-        console.log(
-            `\n\nConectando a api do Groq com modelo Gemma2 para determinar o vencedor...`
-        );
+        console.log(`\n\nConectando a api do Groq com modelo Gemma2 para determinar o vencedor...`);
 
-        console.log(
-            `\n\nRanking final com o vencedor, feito pelo Groq com o modelo Gemma2:\n\n${await vencedor(
-                autoAvaliacoes
-            )}`
-        );
+        console.log(`\n\nRanking final com o vencedor, feito pelo Groq com o modelo Gemma2:\n\n${await vencedor(autoAvaliacoes)}`);
 
-        let op = await getUserInput(
-            "\n\nDeseja fazer outra comparação? Digite 1 para sim e 0 para não: "
-        );
+        let op = await getUserInput("\n\nDeseja fazer outra pergunta? Digite 1 para sim e 0 para não: ");
         return parseInt(op, 10);
     } catch (error) {
         console.error("Ocorreu um erro:", error);
@@ -137,6 +126,4 @@ while (op != 0) {
     op = await main();
 }
 
-console.log(
-    "\nObrigado por usar o Chatbot de Comparação de Modelos de Linguagem!"
-);
+console.log("\nObrigado por usar o Chatbot de Comparação de Modelos de Linguagem!");
